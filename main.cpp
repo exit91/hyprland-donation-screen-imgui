@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <cstdlib>
 #include <imgui.h>
+#include <imgui_freetype.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <stdio.h>
@@ -65,8 +66,19 @@ int main(void) {
         io->ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
         io->ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
 
+        ImFontConfig config;
+        config.OversampleH = config.OversampleV = 1;
+        config.MergeMode = true;
+        config.FontBuilderFlags |= ImGuiFreeTypeBuilderFlags_LoadColor;
+        ImWchar ranges[] = {0x1, 0x1FFFF, 0};
+
         io->Fonts->AddFontFromFileTTF(FONT_PATH, 20.0f);
+        io->Fonts->AddFontFromFileTTF(EMOJI_PATH, 20.0f, &config, ranges);
+        io->Fonts->Build();
+
         largeFont = io->Fonts->AddFontFromFileTTF(FONT_PATH, 24.0f);
+        io->Fonts->AddFontFromFileTTF(EMOJI_PATH, 24.0f, &config, ranges);
+        io->Fonts->Build();
 
         ImGui_ImplGlfw_InitForOpenGL(window, true);
         ImGui_ImplOpenGL3_Init("#version 100");
