@@ -1,0 +1,52 @@
+project('imgui', 'cpp',
+    version : '1.91.8',
+    default_options : ['warning_level=3', 'cpp_std=c++14'])
+
+glfw = dependency('glfw3', version: '>=3.4')
+freetype2 = dependency('freetype2', version: '>=2.10')
+plutosvg = dependency('plutosvg', version: '>=0.0.6')
+plutovg = dependency('plutovg', version: '>=0.0.13')
+
+imgui_compile_args = [
+   '-DIMGUI_USE_WCHAR32',
+   '-DIMGUI_ENABLE_FREETYPE',
+   '-DIMGUI_ENABLE_FREETYPE_PLUTOSVG']
+
+imgui_sources = [
+    'imgui.cpp',
+    'imgui_draw.cpp',
+    'imgui_tables.cpp',
+    'imgui_widgets.cpp',
+    'backends/imgui_impl_opengl3.cpp',
+    'backends/imgui_impl_glfw.cpp',
+    'misc/cpp/imgui_stdlib.cpp',
+    'misc/freetype/imgui_freetype.cpp']
+
+imgui_lib = library('imgui', imgui_sources,
+    dependencies: [glfw, freetype2, plutovg, plutosvg],
+    cpp_args: imgui_compile_args,
+    install : true)
+
+imgui_dep = declare_dependency(
+    link_with: imgui_lib,
+    compile_args: imgui_compile_args)
+
+install_headers(
+    'imgui.h',
+    'imconfig.h',
+    'imgui_internal.h',
+    'imstb_textedit.h',
+    'imstb_rectpack.h',
+    'imstb_truetype.h',
+    'misc/cpp/imgui_stdlib.h',
+    'misc/freetype/imgui_freetype.h',
+    'backends/imgui_impl_glfw.h',
+    'backends/imgui_impl_opengl3.h',
+    'backends/imgui_impl_opengl3_loader.h',
+    )
+
+pkgmod = import('pkgconfig')
+pkgmod.generate(imgui_lib,
+    name: 'ImGUI',
+    filebase: 'imgui',
+    subdirs: 'imgui')

@@ -2,7 +2,7 @@ _default:
     just --list
 
 build-and-run:
-    just configure && just build && just run
+    just clean && just configure && just build && just run
 
 configure:
     meson setup ./build --reconfigure --buildtype=release
@@ -14,4 +14,4 @@ run:
     ./build/hypr-donate-pls
 
 clean:
-    rm ./build -rf
+    rm ./build ./.cache -rf

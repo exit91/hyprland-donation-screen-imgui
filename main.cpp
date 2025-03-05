@@ -1,5 +1,6 @@
 #include <GLES2/gl2.h>
 #include <GLFW/glfw3.h>
+#include <cstdlib>
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
@@ -14,17 +15,14 @@ const char* TEXT =
     "existence.\n\n"
     "You can donate once, or monthly, and it takes less than 5 minutes.";
 
-const char* FONT_PATH =
-    "/nix/store/dcz583cyfqn6bz7dny80qlmlkafs1wki-noto-fonts-24.3.1/share/fonts/"
-    "noto/NotoSans[wdth,wght].ttf";
-
-const char* FONT_PATH_EMOJI = "./noto-untouchedsvg.ttf";
-
 static void glfw_error_callback(int error, const char* description) {
     fprintf(stderr, "GLFW Error %d: %s\n", error, description);
 }
 
 int main(void) {
+    const char* FONT_PATH = std::getenv("FONT_PATH");
+    const char* EMOJI_PATH = std::getenv("EMOJI_PATH");
+
     GLFWwindow* window = nullptr;
     ImFont* largeFont = nullptr;
 

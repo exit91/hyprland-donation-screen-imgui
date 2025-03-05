@@ -6,7 +6,10 @@ imgui = dependency('imgui', version: '>=1.90')
 glfw = dependency('glfw3', version: '>=3.3')
 gles2 = dependency('glesv2', version: '>=3.2')
 
-imgui_compile_args = []
+imgui_compile_args = [
+   '-DIMGUI_USE_WCHAR32',
+   '-DIMGUI_ENABLE_FREETYPE',
+   '-DIMGUI_ENABLE_FREETYPE_PLUTOSVG']
 
 executable('hypr-donate-pls', 'main.cpp',
   cpp_args: imgui_compile_args,
