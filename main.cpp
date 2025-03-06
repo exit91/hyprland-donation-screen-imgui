@@ -90,6 +90,7 @@ int main(void) {
         ImGuiStyle& style = ImGui::GetStyle();
         style.FrameRounding = 4.0f;
         style.FramePadding = ImVec2(16.0f, 12.0f);
+        style.Colors[ImGuiCol_WindowBg] = ImVec4(0.01f, 0.02f, 0.09f, 1.0f);
         style.Colors[ImGuiCol_Text] = ImVec4(0.22f, 0.74f, 0.97f, 1.0f);
         style.Colors[ImGuiCol_Button] = ImVec4(0.11f, 0.37f, 0.53f, 0.5f);
         style.Colors[ImGuiCol_ButtonHovered] =
